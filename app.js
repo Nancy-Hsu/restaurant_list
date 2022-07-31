@@ -3,10 +3,13 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-// require express-handlebars here
-const exphbs = require('express-handlebars')
+
 //// model
 const Restaurant = require('./models/restaurantModel')
+
+
+// require express-handlebars here
+const exphbs = require('express-handlebars')
 //template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
@@ -21,6 +24,11 @@ db.on('error', () => console.log('DB error'))
 db.once('open', () => console.log('DB connected'))
 
 
+////bodyParser 
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: true }))
+
+
 ////static files
 app.use(express.static('public'))
 
@@ -30,15 +38,38 @@ app.get('/', (req, res) => {
   Restaurant.find()
   .lean()
   .then( restaurants => res.render('index', { restaurants }) )
+  .catch(error => console.log(error))
 })
 
 ////render show by id
-app.get('/restaurants/:restaurant_id', (req,res) => {
-  const restaurant_id = req.params.restaurant_id
-  const restaurant = restaurantList.find(item => item.id.toString() === restaurant_id )
-  res.render('show', { restaurant })
+app.get('/restaurant/:id', (req,res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+  .lean()
+  .then(restaurant => res.render('show', { restaurant }))
+  .catch(error => console.log(error))
 })
 
+app.get('/restaurant/:id/edit', (req,res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+  .lean()
+  .then(restaurant => res.render('edit',{ restaurant }))
+    .catch(error => console.log(error))
+})
+
+app.post('/restaurant/:id/edit', (req, res) => {
+  const id = req.params.id
+  const newDetail = req.body
+  return Restaurant.findById(id)
+  .then( restaurant => {
+    for(let key in newDetail) {
+      restaurant[key] = newDetail[key]
+    }
+
+    return restaurant.save()
+  }).then(() => res.redirect(`/restaurant/${id}`)).catch(error => console.log(error))
+})
 
 // ////search routes
 // app.get('/search/', (req, res) => {
@@ -55,6 +86,9 @@ app.get('/restaurants/:restaurant_id', (req,res) => {
 //     res.render('index', { restaurants: filterRestaurants, keyword: keyword })
 //   }
 // })
+
+
+
 
 
 app.listen(port, () => {

@@ -19,14 +19,16 @@
 
 
 
-<div class="mt-4 text-center"><p>{{{ alert }}}</p></div>
+<div class="mt-4 text-center">
+  <p>{{{ alert }}}</p>
+</div>
 <!-- restaurant list -->
 <div class='container mt-5'>
   <div class='row'>
     <div class='col-md-10 col-12 mx-auto'>
       <div class='card-columns m-1'>
         {{#each restaurants}}
-        <a href='/restaurants/{{this.id}}' class='text-secondary'>
+        <a href='/restaurant/{{this._id}}' class='text-secondary'>
           <div class='card shadow mb-3'>
             <img class='card-img-top' src='{{this.image}}' alt='{{this.name}}' />
             <div class='card-body m-2 p-3'>
@@ -40,8 +42,15 @@
                 <i class='fas fa-star fa-xs'></i>
               </span>
             </div>
+
           </div>
+          <div>
+            <a href="./restaurant/{{ this._id }}/edit">edit</a>
+
+          </div>
+         
         </a>
+
         {{/each}}
       </div>
     </div>

@@ -1,0 +1,73 @@
+<form action="/restaurant/{{ restaurant._id }}/edit" method="post">
+
+  <h1 class="mb-1 restaurant-show-title">
+    <input type="text" placeholder="name" name="name" value="{{ restaurant.name }}">
+  </h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-10 mx-auto">
+
+        <p class="mb-1">
+          <span class="text-secondary">
+            英文名字：
+          </span>
+          <input type="text" placeholder="{{ restaurant.name_en }}" name="name_en" value="{{ restaurant.name_en }}">
+
+        </p>
+
+        <p class="mb-1">
+          <span class="text-secondary">
+            類別：
+          </span>
+          <input type="text" placeholder="category" name="category" value="{{ restaurant.category }}">
+
+        </p>
+
+        <p class="mb-1">
+          <span class="text-secondary">
+            地址：
+          </span>
+
+          <input type="text" placeholder="location" name="location" value="{{ restaurant.location }}">
+        </p>
+
+        <p class="mb-1">
+          <span class="text-secondary">
+            Google Map：
+          </span>
+          <input type="url" placeholder="google_map" name="google_map" value="{{ restaurant.google_map }} ">
+        </p>
+
+        <p class="mb-1">
+          <span class="text-secondary">
+            電話：
+          </span>
+          <input type="tel" placeholder="phone" name="phone" value="{{ restaurant.phone }}">
+        </p>
+
+        <p class="mb-1">
+          <span class="text-secondary">
+            照片網址：
+          </span>
+          <input type="url" placeholder="image" name="image" value="{{ restaurant.image }}">
+        </p>  
+
+        <p class="mb-5">
+          <span class="text-secondary">
+            店家資訊：
+          </span>
+          <input type="text" placeholder="description" name="description" value="{{ restaurant.description }}">
+        </p>
+
+        {{!-- <img class="rounded mx-auto d-block mb-4 w-100" src="{{ restaurant.image }}" alt="{{ restaurant.name }}"
+          style="max-width: 600px;"> --}}
+      </div>
+    </div>
+    <div class="text-center mb-3">
+      <a href="/">back</a>
+      <a href="/restaurant/{{ restaurant._id }}/edit" class="mx-3">reset</a>
+      <button type="submit" class="btn btn-primary mx-3">Save</button>
+    </div>
+
+  </div>
+</form>
