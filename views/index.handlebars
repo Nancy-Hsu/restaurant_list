@@ -43,11 +43,15 @@
               </span>
             </div>
 
+          <div class="card-footer d-flex justify-content-end align-items-baseline">
+            <a href="./restaurant/{{ this._id }}/edit" class="">Edit</a>
+            <a href="./restaurant/{{this._id }}" class="mx-3">Detail</a>
+            <form action="/restaurant/{{this._id }}/delete" method="post">
+            <button type="submit" class="btn btn-primary">delete</button></form>
           </div>
-          <div>
-            <a href="./restaurant/{{ this._id }}/edit">edit</a>
 
           </div>
+
          
         </a>
 

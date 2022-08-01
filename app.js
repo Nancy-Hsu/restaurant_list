@@ -50,6 +50,7 @@ app.get('/restaurant/:id', (req,res) => {
   .catch(error => console.log(error))
 })
 
+//// get into update page
 app.get('/restaurant/:id/edit', (req,res) => {
   const id = req.params.id
   return Restaurant.findById(id)
@@ -58,6 +59,7 @@ app.get('/restaurant/:id/edit', (req,res) => {
     .catch(error => console.log(error))
 })
 
+/////save update
 app.post('/restaurant/:id/edit', (req, res) => {
   const id = req.params.id
   const newDetail = req.body
@@ -66,10 +68,23 @@ app.post('/restaurant/:id/edit', (req, res) => {
     for(let key in newDetail) {
       restaurant[key] = newDetail[key]
     }
-
     return restaurant.save()
   }).then(() => res.redirect(`/restaurant/${id}`)).catch(error => console.log(error))
 })
+
+
+/////delete function
+app.post('/restaurant/:_id/delete', (req, res) => {
+  const id = req.params.id
+  Restaurant.deleteOne(id)
+  .then(() => res.redirect('/'))
+  .catch(error => console.log(error))
+})
+
+
+
+///delete
+
 
 // ////search routes
 // app.get('/search/', (req, res) => {
