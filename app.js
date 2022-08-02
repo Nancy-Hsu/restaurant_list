@@ -14,6 +14,7 @@ const exphbs = require('express-handlebars')
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
+
 //// connect to mongoose
 const mongoose = require('mongoose')
 mongoose.connect(process.env.RES_MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -32,6 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 ////static files
 app.use(express.static('public'))
 
+
 //routes setting
 ////首頁
 app.get('/', (req, res) => {
@@ -41,7 +43,19 @@ app.get('/', (req, res) => {
   .catch(error => console.log(error))
 })
 
-////render show by id
+///// add new restaurant
+app.get('/restaurant/new', (req, res) => {
+  res.render('new')
+})
+
+app.post('/restaurant', (req, res) => {
+const newRestaurant = req.body
+  return Restaurant.create(newRestaurant)
+    .then(newRestaurant => res.redirect(`/restaurant/${newRestaurant._id}`))
+})
+
+
+//render show by id
 app.get('/restaurant/:id', (req,res) => {
   const id = req.params.id
   return Restaurant.findById(id)
@@ -49,6 +63,7 @@ app.get('/restaurant/:id', (req,res) => {
   .then(restaurant => res.render('show', { restaurant }))
   .catch(error => console.log(error))
 })
+
 
 //// get into update page
 app.get('/restaurant/:id/edit', (req,res) => {
@@ -74,33 +89,30 @@ app.post('/restaurant/:id/edit', (req, res) => {
 
 
 /////delete function
-app.post('/restaurant/:_id/delete', (req, res) => {
-  const id = req.params.id
-  Restaurant.deleteOne(id)
+app.post('/restaurant/:id/delete', (req, res) => {
+  const _id = req.params.id
+  Restaurant.deleteOne( { _id } )
   .then(() => res.redirect('/'))
   .catch(error => console.log(error))
 })
 
 
+////search routes
+app.get('/search/', (req, res) => {
 
-///delete
-
-
-// ////search routes
-// app.get('/search/', (req, res) => {
-//   const keyword = req.query.keyword.trim()
-
-//   ////filter by name or type
-//   const filterRestaurants = restaurantList.filter(item => item.name.toLowerCase().includes(keyword.toLowerCase()) || item.category.includes(keyword))
-
-//   //// result or not setting
-//   if (!filterRestaurants.length) {
-//     const resultNotify = '-----沒有符合的搜尋，或許以下有你感興趣的餐廳？-------'
-//     res.render('index', { alert: resultNotify, restaurants, keyword })
-//   } else {
-//     res.render('index', { restaurants: filterRestaurants, keyword: keyword })
-//   }
-// })
+  const keyword = req.query.keyword.trim()
+  Restaurant.find()
+  .lean()
+  .then(restaurants => {
+    const filterRestaurants = restaurants.filter(item => item.name.toLowerCase().includes(keyword.toLowerCase()) || item.category.includes(keyword)
+    )
+    if (!filterRestaurants.length) {
+    const resultNotify = '-----沒有符合的搜尋，或許以下有你感興趣的餐廳？-------'
+    return res.render('index', { alert: resultNotify, restaurants, keyword })
+  } 
+    res.render('index', { restaurants: filterRestaurants, keyword })
+}).catch(error => console.log(error))
+})
 
 
 
