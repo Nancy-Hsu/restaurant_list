@@ -1,5 +1,5 @@
 # My Restaurant List
-屬於自己的餐廳口袋名單，瀏覽、搜尋、更多資訊一站搞定。
+新增屬於自己的餐廳口袋名單，瀏覽、編輯、更多資訊一站搞定。
 
 ### 實際操作
 ![restaurant-list](https://user-images.githubusercontent.com/108853120/180142857-2b667937-39b5-464c-a835-ad9700120085.gif)
@@ -15,15 +15,20 @@
 | 更多 | 點選以查看餐廳的更多詳細資訊 (地址、電話) |
 | 連結    | 貼心連結所選餐廳的地址到 Google 地圖 |
 | 搜尋    | 以店名或料理類別搜尋特定餐廳 |
+| 新增    | 新增自己的餐廳口袋名單，需要就打開來看 |
+| 編輯    | 隨時隨地編輯各種細節、更新最新資訊 |
+| 刪除    | 舊愛雖然美，但留著不如先刪除吧 |
 <br />
 <br />
 
 ## 開發工具
-- Node.js 10.15.0
-- Express 4.17.1
-- Express-Handlebars 5.3.3
+- Node.js 16.14.2
+- Express 4.16.4
+- Express-Handlebars 3.0.0
 - Bootstrap 4.3.1
 - Font-awesome 5.8.1
+- Mongoose 5.9.7
+- MongoDB
 <br />
 <br />
 
