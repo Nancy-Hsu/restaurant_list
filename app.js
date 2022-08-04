@@ -13,15 +13,8 @@ const exphbs = require('express-handlebars')
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-
-//// connect to mongoose
-const mongoose = require('mongoose')
-mongoose.connect(process.env.RES_MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-
-db = mongoose.connection
-
-db.on('error', () => console.log('DB error'))
-db.once('open', () => console.log('DB connected'))
+//// mongoose connection
+require('./config/mongoose')
 
 
 ////bodyParser 
