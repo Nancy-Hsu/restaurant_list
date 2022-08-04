@@ -3,8 +3,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-
-//// model
+////model
 const Restaurant = require('./models/restaurantModel')
 
 
@@ -33,6 +32,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 ////static files
 app.use(express.static('public'))
 
+const methodOverride = require('method-override')
+app.use(methodOverride('_method'))
 
 //routes setting
 ////首頁
@@ -75,7 +76,7 @@ app.get('/restaurant/:id/edit', (req,res) => {
 })
 
 /////save update
-app.post('/restaurant/:id/edit', (req, res) => {
+app.put('/restaurant/:id', (req, res) => {
   const id = req.params.id
   const newDetail = req.body
   return Restaurant.findById(id)
@@ -89,7 +90,7 @@ app.post('/restaurant/:id/edit', (req, res) => {
 
 
 /////delete function
-app.post('/restaurant/:id/delete', (req, res) => {
+app.delete('/restaurant/:id', (req, res) => {
   const _id = req.params.id
   Restaurant.deleteOne( { _id } )
   .then(() => res.redirect('/'))
