@@ -6,31 +6,34 @@ const port = 3000
 ////model
 const Restaurant = require('./models/restaurantModel')
 
-
 // require express-handlebars here
 const exphbs = require('express-handlebars')
+
+////bodyParser 
+const bodyParser = require
+('body-parser')
+
+const methodOverride = require('method-override')
+
+//// mongoose connection
+require('./config/mongoose')
+////引用路由器
+const router = require('./routes')
+////express-validator
+const { body, validationResult } = require('express-validator');
+
+
+
 //template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-//// mongoose connection
-require('./config/mongoose')
-
-
-////bodyParser 
-const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: true }))
-
 
 ////static files
 app.use(express.static('public'))
 
-const methodOverride = require('method-override')
 app.use(methodOverride('_method'))
-
-////引用路由器
-const router = require('./routes')
-
 
 app.use(router)
 //routes setting

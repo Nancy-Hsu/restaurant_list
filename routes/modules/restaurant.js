@@ -7,29 +7,16 @@ router.get('/new', (req, res) => {
   res.render('new')
 })
 
-///search routes
-router.get('/search', (req, res) => {
-  const keyword = req.query.keyword.trim()
-  if (!keyword.length) return  
-  
-  return Restaurant.find({
-    '$or': [{ 'name': { '$regex': keyword, '$options': 'i' } }, { 'category': { '$regex': keyword, '$options': 'i' } }
-    ]
-  }).lean()
-    .then(restaurants => {
-      if (!restaurants.length) {
-        const resultNotify = '-----沒有符合的搜尋，或許以下有你感興趣的餐廳？-------'
-        return Restaurant.find().lean().then(restaurants =>  res.render('index', { alert: resultNotify, restaurants, keyword }))
-      }
-      res.render('index', { restaurants, keyword })
-    })
-})
+
 
 //// post a new restaurant
 router.post('/', (req, res) => {
   const newRestaurant = req.body
   return Restaurant.create(newRestaurant)
     .then(newRestaurant => res.redirect(`/restaurant/${newRestaurant._id}`))
+    .catch(err => {
+      return res.render('error', { err })
+    })
 })
 
 //render show by id
@@ -38,7 +25,9 @@ router.get('/:id', (req, res) => {
   return Restaurant.findById(id)
     .lean()
     .then(restaurant => res.render('show', { restaurant }))
-    .catch(error => console.log(error))
+    .catch(err => {
+      return res.render('error', { err })
+    })
 })
 
 //// get into update page
@@ -47,7 +36,9 @@ router.get('/:id/edit', (req, res) => {
   return Restaurant.findById(id)
     .lean()
     .then(restaurant => res.render('edit', { restaurant }))
-    .catch(error => console.log(error))
+    .catch(err => {
+      return res.render('error', { err })
+    })
 })
 
 /////save update
@@ -56,7 +47,9 @@ router.put('/:id', (req, res) => {
   const newDetail = req.body
 
   return Restaurant.findByIdAndUpdate(id, newDetail)
-    .then(() => res.redirect(`/restaurant/${id}`)).catch(error => console.log(error))
+    .then(() => res.redirect(`/restaurant/${id}`))
+    .catch(err => {
+      return res.render('error', { err })})
 })
 
 
@@ -65,8 +58,10 @@ router.delete('/:id', (req, res) => {
   const _id = req.params.id
   Restaurant.deleteOne({ _id })
     .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
+    .catch(err => {
+      return res.render('error', { err })})
 })
+
 
 
 module.exports = router

@@ -2,10 +2,10 @@
 <div class='container search-bar'>
   <div class='search-bar-outer'>
     <div class='search-bar-inner'>
-      <form action='/restaurant/search/'>
+      <form action='/search/'>
         <h4 class='mb-2'><label for='searchRestaurant'>尋找餐廳：</label></h4>
         <div class='input-group'>
-          <input id='searchRestaurant' type='text' name='keyword' class='form-control' autocomplete='off'
+          <input id='searchRestaurant' type='text' name='keyword' id ='keyword' class='form-control' autocomplete='off'
             placeholder='輸入餐廳、分類' aria-label='Restaurant Name...' value='{{ keyword }}'
             aria-describedby='search-button' />
           <div class='input-group-append'>
@@ -13,15 +13,21 @@
           </div>
         </div>
       </form>
+      {{#if error }}
+      <div class="alert alert-warning" role="alert">
+         您沒有輸入關鍵字唷！
+      </div>
+      {{/if}}
     </div>
   </div>
 </div>
 
-
-
+               
+{{#if alert}}
 <div class="mt-4 text-center">
-  <p>{{{ alert }}}</p>
+  <p>-----沒有符合的搜尋，或許以下有你感興趣的餐廳？-------</p>
 </div>
+{{/if}}
 <!-- restaurant list -->
 <div class='container mt-5'>
   <div class='row'>
@@ -43,16 +49,17 @@
               </span>
             </div>
 
-          <div class="card-footer d-flex justify-content-end align-items-baseline">
-            <a href="./restaurant/{{ this._id }}/edit" class="">編輯</a>
-            <a href="./restaurant/{{this._id }}" class="mx-3">看更多</a>
-            <form action="/restaurant/{{this._id }}?_method=DELETE" method="post">
-            <button type="submit" class="btn btn-primary">刪除</button></form>
-          </div>
+            <div class="card-footer d-flex justify-content-end align-items-baseline">
+              <a href="./restaurant/{{ this._id }}/edit" class="">編輯</a>
+              <a href="./restaurant/{{this._id }}" class="mx-3">看更多</a>
+              <form action="/restaurant/{{this._id }}?_method=DELETE" method="post">
+                <button type="submit" class="btn btn-primary" onclick="return isDelete()">刪除</button>
+              </form>
+            </div>
 
           </div>
 
-         
+
         </a>
 
         {{/each}}
@@ -60,3 +67,9 @@
     </div>
   </div>
 </div>
+
+<script>
+  function isDelete() {
+    return confirm('確定要把這間餐廳刪除嗎?')
+  }
+</script>
