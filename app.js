@@ -22,10 +22,17 @@ const router = require('./routes')
 ////express-validator
 const { body, validationResult } = require('express-validator');
 
+////handlebars helper
+const helpers = require('handlebars-helpers')();
+
+
 
 
 //template engine
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.engine('handlebars', exphbs({ 
+  helpers,
+  defaultLayout: "main"
+}))
 app.set('view engine', 'handlebars')
 
 app.use(bodyParser.urlencoded({ extended: true }))

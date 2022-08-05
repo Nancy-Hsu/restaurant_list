@@ -105,8 +105,11 @@ a {
   color: #4592af;
 }
 
-#sort {
+#orderBy,
+.orderBy {
   border: #aaaaaa solid 1px;
   background: white;
   color: #4592af
 }
+
+
