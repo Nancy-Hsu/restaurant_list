@@ -2,16 +2,8 @@ const express = require('express')
 const router = express.Router()
 const Restaurant = require('../../models/restaurantModel')
 let sort = 'name'
-// const { check, validationResult } = require('express-validator');
-// const bodyParser = require('body-parser');
-// const urlencodedParser = bodyParser.urlencoded({ extended: false })
-
-
-
-
 
 router.get('/', (req, res) => {
-
   Restaurant.find()
     .lean()
     .sort(sort)
@@ -22,20 +14,10 @@ router.get('/', (req, res) => {
 })
 
 
-// body('keyword', '輸入錯誤').exists(),
-//  const errors = validationResult(req);
-// if (!errors.isEmpty()) {
-//   // const error = errors.array()
-//   // )
-//   return res.status(400).json({ errors: errors.array() })
-// }
-
-
-
 ///search routes
 router.get('/search',(req, res) => {
   const keyword = req.query.keyword.trim()
-  // if (!keyword.length) return 
+  if(!keyword.length) return
 
   return Restaurant.find({
     '$or': [{ 'name': { '$regex': keyword, '$options': 'i' } }, { 'category': { '$regex': keyword, '$options': 'i' } }

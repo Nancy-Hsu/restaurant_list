@@ -105,11 +105,23 @@ a {
   color: #4592af;
 }
 
+.btn-delete,
+.btn-new {
+  background: #4592af;
+  color: white;
+}
+
 #orderBy,
 .orderBy {
-  border: #aaaaaa solid 1px;
   background: white;
-  color: #4592af
+  color: #4592af;
 }
+
+
+.new-form {
+  min-width: 250px;
+}
+
+
 
 

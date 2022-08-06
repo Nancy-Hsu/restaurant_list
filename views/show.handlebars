@@ -7,7 +7,7 @@
         <a href="/">返回</a>
         <a href="/restaurant/{{ restaurant._id }}/edit" class="mx-3">編輯</a>
         <form action="/restaurant/{{restaurant._id }}?_method=DELETE" method="post">
-          <button type="submit" class="btn btn-primary">刪除</button>
+          <button type="submit" class="btn btn-primary btn-delete" onclick="return isDelete()">刪除</button>
         </form>
       </div>
 
@@ -50,3 +50,9 @@
     </div>
   </div>
 </div>
+
+<script>
+  function isDelete() {
+    return confirm('確定要把這間餐廳刪除嗎?')
+  }
+</script>

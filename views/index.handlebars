@@ -5,11 +5,12 @@
       <form action='/search/'>
         <h4 class='mb-2'><label for='searchRestaurant'>尋找餐廳：</label></h4>
         <div class='input-group'>
-          <input id='searchRestaurant' type='text' name='keyword'  class='form-control' autocomplete='off'
+          <input id='searchRestaurant' type='text' name='keyword' class='form-control' autocomplete='off'
             placeholder='輸入餐廳、分類' aria-label='Restaurant Name...' value='{{ keyword }}'
             aria-describedby='search-button' />
           <div class='input-group-append'>
-            <button class='btn btn-major' type='submit' id='search-button'><i class='fas fa-search' onclick="return check()"></i></button>
+            <button class='btn btn-major' type='submit' id='search-button'><i class='fas fa-search'
+                onclick="return check()"></i></button>
           </div>
         </div>
       </form>
@@ -18,51 +19,50 @@
 </div>
 
 <script>
+
   function check() {
-    const input = document.querySelector('#searchRestaurant').value
-    if (input.trim().length === 0) {
+    const input = document.querySelector('#searchRestaurant').value.trim()
+    if (input.length === 0) {
       alert('請輸入搜尋關鍵字')
-      return false 
+      return false
     }
   }
 </script>
 
 
 
-<div class="dropdown mx-5 d-flex flex-row-reverse">
+<div class="dropdown mt-2 mx-5 d-flex flex-row-reverse">
   <button class="btn btn-secondary dropdown-toggle orderBy" type="button" data-toggle="dropdown" aria-expanded="false">
     排序
   </button>
-  <div class="dropdown-menu " >
-    <a class="dropdown-item orderBy" href="/name/sort" {{#is sort 'name'}}
-    style="background:#4592af;color: white" {{/is}}>名稱 A 到 Z</a>
-    <a class="dropdown-item orderBy" href="/-name/sort"  {{#is sort '-name'}}
-    style="background:#4592af;color: white" {{/is}}>名稱 Z 到 A</a>
-    <a class="dropdown-item orderBy" href="/category/sort"  {{#is sort 'category'}}
-    style="background:#4592af;color: white" {{/is}}>依類別</a>
-    <a class="dropdown-item orderBy" href="/-rating/sort"  {{#is sort '-rating'}}
-    style="background:#4592af;color: white" {{/is}}>依評分</a>
+  <div class="dropdown-menu ">
+    <a class="dropdown-item orderBy" href="/name/sort" {{#is sort 'name' }} style="background:#4592af;color: white"
+      {{/is}}>名稱 A 到 Z</a>
+    <a class="dropdown-item orderBy" href="/-name/sort" {{#is sort '-name' }} style="background:#4592af;color: white"
+      {{/is}}>名稱 Z 到 A</a>
+    <a class="dropdown-item orderBy" href="/category/sort" {{#is sort 'category' }}
+      style="background:#4592af;color: white" {{/is}}>依類別</a>
+    <a class="dropdown-item orderBy" href="/-rating/sort" {{#is sort '-rating' }}
+      style="background:#4592af;color: white" {{/is}}>依評分</a>
   </div>
 </div>
 
 
 {{!-- <div class="form-group col-md-4 orderBy">
   <form action="/" method="get">
-<select name='orderBy' id="orderBy" class="form-control">
-  <option value="name" >名稱A到Z</option>
-  <option value="-name"selected >名稱Z到A</option>
-  <option value="category">依類別</option>
-    <option value="-rating">依評分</option>
-</select>
-<button type="submit">ok</button>
+    <select name='orderBy' id="orderBy" class="form-control">
+      <option value="name">名稱A到Z</option>
+      <option value="-name" selected>名稱Z到A</option>
+      <option value="category">依類別</option>
+      <option value="-rating">依評分</option>
+    </select>
+    <button type="submit">ok</button>
 
   </form>
-  
+
 </div> --}}
 
 
-
-            
 {{#if alert}}
 <div class="mt-4 text-center">
   <p>-----沒有符合的搜尋，或許以下有你感興趣的餐廳？-------</p>
@@ -75,7 +75,7 @@
       <div class='card-columns m-1'>
         {{#each restaurants}}
         <a href='/restaurant/{{this._id}}' class='text-secondary'>
-          <div class='card shadow mb-3'>
+          <div class='card shadow mb-3 mx-auto'>
             <img class='card-img-top' src='{{this.image}}' alt='{{this.name}}' />
             <div class='card-body m-2 p-3'>
               <h6 class='card-title mb-1'>{{{this.name}}}</h6>
@@ -89,19 +89,15 @@
               </span>
             </div>
 
-            <div class="card-footer d-flex justify-content-end align-items-baseline">
-              <a href="./restaurant/{{ this._id }}/edit" class="">編輯</a>
-              <a href="./restaurant/{{this._id }}" class="mx-3">看更多</a>
+            <div class="card-footer d-flex justify-content-end align-items-center">
+              <a href="/restaurant/{{ this._id }}/edit" class="">編輯</a>
+              <a href="/restaurant/{{this._id }}" class="mx-3">更多</a>
               <form action="/restaurant/{{this._id }}?_method=DELETE" method="post">
-                <button type="submit" class="btn btn-primary" onclick="return isDelete()">刪除</button>
+                <button type="submit" class="btn btn-primary btn-delete" onclick="return isDelete()">刪除</button>
               </form>
             </div>
-
           </div>
-
-
         </a>
-
         {{/each}}
       </div>
     </div>
