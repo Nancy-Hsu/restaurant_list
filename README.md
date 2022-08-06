@@ -1,7 +1,7 @@
 # My Restaurant List
 新增屬於自己的餐廳口袋名單，瀏覽、編輯、更多資訊一站搞定。
 
-### 實際操作
+### 搜尋實際操作
 ![restaurant-list](https://user-images.githubusercontent.com/108853120/180142857-2b667937-39b5-464c-a835-ad9700120085.gif)
 
 
@@ -40,7 +40,10 @@
 
 3. 在本地開啟之後，透過終端機進入資料夾，輸入： `npm install`
 
-4. 安裝完畢後，繼續輸入： `npm run dev`
+4. 安裝完畢後，設定環境變數連線 MongoDB
+`MONGODB_URI=mongodb+srv://<Your MongoDB Account>:<Your MongoDB Password>@cluster0.xxxx.xxxx.net/<Your MongoDB Table><?retryWrites=true&w=majority`
+
+5. 繼續輸入： `npm run dev` 及 `npm run seed` 載入資料
 
 5. 若看見此行訊息則代表順利運行， `express is listening on localhost:3000`
 
