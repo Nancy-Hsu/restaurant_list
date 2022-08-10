@@ -41,7 +41,7 @@
 3. 在本地開啟之後，透過終端機進入資料夾，輸入： `npm install`
 
 4. 安裝完畢後，設定環境變數連線 MongoDB
-`MONGODB_URI=mongodb+srv://<Your MongoDB Account>:<Your MongoDB Password>@cluster0.xxxx.xxxx.net/<Your MongoDB Table><?retryWrites=true&w=majority`
+`RES_MONGODB_URI=mongodb+srv://<Your MongoDB Account>:<Your MongoDB Password>@cluster0.xxxx.xxxx.net/<Your MongoDB Table><?retryWrites=true&w=majority`
 
 5. 繼續輸入： `npm run dev` 及 `npm run seed` 載入資料
 
