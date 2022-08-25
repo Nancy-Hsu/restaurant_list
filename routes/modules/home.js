@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 ///search routes
 router.get('/search',(req, res) => {
   const keyword = req.query.keyword.trim()
-  if(!keyword.length) return
+  // if(!keyword.length) return
 
   return Restaurant.find({
     '$or': [{ 'name': { '$regex': keyword, '$options': 'i' } }, { 'category': { '$regex': keyword, '$options': 'i' } }
