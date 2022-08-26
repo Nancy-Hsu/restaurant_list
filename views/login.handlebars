@@ -2,15 +2,14 @@
   <div class="col-md-4 m-auto bg-light pt-2" id="top-menu">
     <ul class="nav nav-pills mb-3 nav-fill border-bottom " id="pills-tab" role="tablist">
       <li class="nav-item" role="presentation">
-        <a class="nav-link {{#if login }} active {{/if}}" id="pills-login-tab" data-toggle="pill" href="#login"
+        <a class="nav-link {{#if login }} active {{/if}} text-muted " id="pills-login-tab" data-toggle="pill" href="#login"
           data-target="#login" aria-selected="true" role="tab">ALREADY A
           MEMBER</a>
 
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link {{#if register }} active {{/if}}" id="pills-create-tab" data-toggle="pill" href="#create"
-          data-target="#create" aria-selected="false" role="tab" tabindex="-1">New
-          IN</a>
+        <a class="nav-link {{#if register }} active {{/if}} text-muted " id="pills-create-tab" data-toggle="pill" href="#create"
+          data-target="#create" aria-selected="false" role="tab" tabindex="-1">I AM NEW HERE</a>
 
 
       </li>
@@ -28,7 +27,7 @@
 
 
 
-          <button class="btn btn-primary mt-4 w-100" type="submit">Sign In</button>
+          <button class="btn btn-primary mt-4 w-100" type="submit">Log In</button>
           <a href="/auth/facebook" class="btn btn-info btn-block w-100 mt-2">Facebook Login</a>
         </form>
       </div>
