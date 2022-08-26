@@ -124,5 +124,15 @@ a {
 
 
 
+#top-menu .nav-item a:visited {
+  background-color: rgba(80, 158, 210, 0.1);
+}
+
+
+
+
+
+
+
 
 
