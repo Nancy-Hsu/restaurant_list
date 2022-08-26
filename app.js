@@ -12,6 +12,7 @@ const helpers = require('handlebars-helpers')();
 
 ////引用路由器
 const router = require('./routes')
+const usePassport = require('./config/passport')
 //// mongoose connection
 require('./config/mongoose')
 ////express-validator
@@ -37,7 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('public'))
 app.use(methodOverride('_method'))
 
-
+usePassport(app)
 //routes setting
 app.use(router)
 
