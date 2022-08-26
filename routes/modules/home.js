@@ -46,8 +46,8 @@ router.get('/search', (req, res) => {
 
 router.get('/:sort/sort', (req, res) => {
   sort = req.params.sort
-  const id = req.user._id
-  Restaurant.find({ id })
+  const userId = req.user._id
+  Restaurant.find({ userId })
     .lean()
     .sort(sort)
     .then(restaurants => res.render('index', { restaurants, sort }))
