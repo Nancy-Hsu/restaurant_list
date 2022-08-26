@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,16 +11,17 @@
   <link rel="shortcut icon"
     href="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
     type="image/x-icon">
-    <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-      {{!-- font-awesome --}}
-    <script src="https://kit.fontawesome.com/750228b3da.js" crossorigin="anonymous"></script>
+  {{!-- font-awesome --}}
+  <script src="https://kit.fontawesome.com/750228b3da.js" crossorigin="anonymous"></script>
 
-      {{!-- index.css --}}
-    <link rel="stylesheet" href="/stylesheets/style.css">
+  {{!-- index.css --}}
+  <link rel="stylesheet" href="/stylesheets/style.css">
 
 </head>
+
 <body>
 
   <header>
@@ -29,12 +31,29 @@
         <a class="navbar-brand" href="/">
           <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
             width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
-          我的餐廳清單
+          {{#if isAuthenticated }} {{ user.name }}{{else}}你{{/if}}的餐廳清單
         </a>
-        <a href='/restaurant/new'>新增餐廳</a>
+        {{#if isAuthenticated}}
+        <div class="w-25 d-flex flex-row-reverse">
+
+
+          <a href="/user/logout">
+            <button class="btn  btn-outline-dark  ">登出</button></a>
+          <a href='/restaurant/new'>
+            <button class="btn btn-dark mx-3">新增餐廳</button></a>
+
+
+        </div>
+
+        {{else}}
+
+        <a href="/user/login">
+          <button class="btn btn-outline-dark">登入</button></a>
+        {{/if}}
+
       </div>
     </nav>
-  
+
     <div class="banner"></div>
   </header>
 
@@ -44,11 +63,12 @@
 
 
   <!--  Bootstrap Bundle with Popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://unpkg.com/browse/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://unpkg.com/browse/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </body>
+
 </html>

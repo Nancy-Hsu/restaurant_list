@@ -7,9 +7,7 @@ router.get('/new', (req, res) => {
   res.render('new')
 })
 
-
-
-//// post a new restaurant
+/// / post a new restaurant
 router.post('/', (req, res) => {
   const newRestaurant = req.body
   return Restaurant.create(newRestaurant)
@@ -19,7 +17,7 @@ router.post('/', (req, res) => {
     })
 })
 
-//render show by id
+// render show by id
 router.get('/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
@@ -30,7 +28,7 @@ router.get('/:id', (req, res) => {
     })
 })
 
-//// get into update page
+/// / get into update page
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
@@ -41,7 +39,7 @@ router.get('/:id/edit', (req, res) => {
     })
 })
 
-/////save update
+/// //save update
 router.put('/:id', (req, res) => {
   const id = req.params.id
   const newDetail = req.body
@@ -49,19 +47,18 @@ router.put('/:id', (req, res) => {
   return Restaurant.findByIdAndUpdate(id, newDetail)
     .then(() => res.redirect(`/restaurant/${id}`))
     .catch(err => {
-      return res.render('error', { err })})
+      return res.render('error', { err })
+    })
 })
 
-
-/////delete function
+/// //delete function
 router.delete('/:id', (req, res) => {
   const _id = req.params.id
   Restaurant.deleteOne({ _id })
     .then(() => res.redirect('/'))
     .catch(err => {
-      return res.render('error', { err })})
+      return res.render('error', { err })
+    })
 })
-
-
 
 module.exports = router

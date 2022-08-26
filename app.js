@@ -3,45 +3,51 @@ const express = require('express')
 const session = require('express-session')
 // require express-handlebars here
 const exphbs = require('express-handlebars')
-////bodyParser 
-const bodyParser = require
-('body-parser')
+/// /bodyParser
+const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
-////handlebars helper
-const helpers = require('handlebars-helpers')();
-
-////引用路由器
-const router = require('./routes')
-const usePassport = require('./config/passport')
-//// mongoose connection
-require('./config/mongoose')
-////express-validator
-const { body, validationResult } = require('express-validator');
+/// /handlebars helper
+const helpers = require('handlebars-helpers')()
 
 const app = express()
 const port = 3000
 
-//template engine
-app.engine('handlebars', exphbs({ 
+/// /引用路由器
+const router = require('./routes')
+const usePassport = require('./config/passport')
+/// / mongoose connection
+require('./config/mongoose')
+/// /express-validator
+const { body, validationResult } = require('express-validator')
+
+// template engine
+app.engine('handlebars', exphbs({
   helpers,
-  defaultLayout: "main"
+  defaultLayout: 'main'
 }))
 app.set('view engine', 'handlebars')
-app.unsubscribe(session({
+app.use(session({
   secret: 'ThisIsMySecret',
   resave: false,
   saveUninitialized: true
 }))
 
 app.use(bodyParser.urlencoded({ extended: true }))
-////static files
+/// /static files
 app.use(express.static('public'))
 app.use(methodOverride('_method'))
 
+// invoke
 usePassport(app)
-//routes setting
-app.use(router)
+/// set res.locals
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
 
+// routes setting
+app.use(router)
 
 app.listen(port, () => {
   console.log(`express is listening on localhost:${port}`)
