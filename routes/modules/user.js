@@ -21,7 +21,7 @@ router.post('/register', (req, res) => {
     errors.push({ message: 'kindly fill up all the fields below.' })
   }
   if (password !== confirmPassword) {
-    errors.push({ message: 'Different password and confirmPassword !' })
+    errors.push({ message: 'Password and confirmPassword are different  !' })
   }
 
   if (errors.length) {
