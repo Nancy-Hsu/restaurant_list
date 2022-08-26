@@ -4,7 +4,8 @@ const Restaurant = require('../../models/restaurantModel')
 let sort = 'name'
 
 router.get('/', (req, res) => {
-  Restaurant.find()
+  const userId = req.user._id
+  Restaurant.find({ userId })
     .lean()
     .sort(sort)
     .then(restaurants => res.render('index', { restaurants, sort }))
@@ -16,27 +17,58 @@ router.get('/', (req, res) => {
 /// search routes
 router.get('/search', (req, res) => {
   const keyword = req.query.keyword.trim()
-  // if(!keyword.length) return
+  const userId = req.user._id
 
-  return Restaurant.find({
-    $or: [{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }
-    ]
-  }).lean()
+  console.log(keyword)
+
+  return Restaurant.find(
+    { $and: [{ userId }, { $or: [{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }] }] }
+
+  ).lean()
     .sort(sort)
     .then(restaurants => {
+
       if (!restaurants.length) {
-        return Restaurant.find().lean().then(restaurants => res.render('index', { restaurants, keyword, alert: true, sort }))
+        return res.render('index', { keyword, alert: true, sort })
       }
+
       res.render('index', { restaurants, keyword })
     }).catch(err => {
       return res.render('error', { err })
     })
+
+  // return Restaurant.find({ userId })
+  //   .lean()
+  //   .sort(sort)
+  //   .then(restaurants => {
+  //     console.log(restaurants)
+  // if (!restaurants.length) {
+  //   return res.render('index', { keyword, alert: true, sort })
+  // }
+
+
+
+  console.log(filterRestaurantsData)
+
+
+  // if (!restaurants.length || !searchResult.length) {
+  //   return res.render('index', { keyword, alert: true, sort })
+  // }
+
+  // res.render('index', { restaurants: filterRestaurantsData, keyword })
+
+
 })
+
+
+
+
+
 
 router.get('/:sort/sort', (req, res) => {
   sort = req.params.sort
-
-  Restaurant.find()
+  const id = req.user._id
+  Restaurant.find({ id })
     .lean()
     .sort(sort)
     .then(restaurants => res.render('index', { restaurants, sort }))

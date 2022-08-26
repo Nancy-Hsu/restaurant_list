@@ -9,8 +9,9 @@ router.get('/new', (req, res) => {
 
 /// / post a new restaurant
 router.post('/', (req, res) => {
-  const newRestaurant = req.body
-  return Restaurant.create(newRestaurant)
+  const newRestaurant  = req.body
+  newRestaurant.userId = req.user._id
+  return Restaurant.create( newRestaurant)
     .then(newRestaurant => res.redirect(`/restaurant/${newRestaurant._id}`))
     .catch(err => {
       return res.render('error', { err })
@@ -19,8 +20,9 @@ router.post('/', (req, res) => {
 
 // render show by id
 router.get('/:id', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Restaurant.findOne({ _id, userId  })
     .lean()
     .then(restaurant => res.render('show', { restaurant }))
     .catch(err => {
@@ -30,8 +32,9 @@ router.get('/:id', (req, res) => {
 
 /// / get into update page
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Restaurant.findOne({ _id, userId })
     .lean()
     .then(restaurant => res.render('edit', { restaurant }))
     .catch(err => {
@@ -41,11 +44,12 @@ router.get('/:id/edit', (req, res) => {
 
 /// //save update
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   const newDetail = req.body
 
-  return Restaurant.findByIdAndUpdate(id, newDetail)
-    .then(() => res.redirect(`/restaurant/${id}`))
+  return Restaurant.findOneAndUpdate({ _id, userId }, newDetail)
+    .then(() => res.redirect(`/restaurant/${_id}`))
     .catch(err => {
       return res.render('error', { err })
     })
@@ -53,8 +57,9 @@ router.put('/:id', (req, res) => {
 
 /// //delete function
 router.delete('/:id', (req, res) => {
+  const userId = req.user._id
   const _id = req.params.id
-  Restaurant.deleteOne({ _id })
+  Restaurant.deleteOne({ _id, userId })
     .then(() => res.redirect('/'))
     .catch(err => {
       return res.render('error', { err })
