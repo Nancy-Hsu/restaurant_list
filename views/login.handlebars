@@ -15,7 +15,7 @@
       </li>
     </ul>
     <div class="tab-content" id="pills-tabContent">
-      <div class="tab-pane fade show active mt-0 pt-0" id="login" role="tabpanel" aria-labelledby="pills-login-tab">
+      <div class="tab-pane fade {{#if login}} show active {{/if }} mt-0 pt-0" id="login" role="tabpanel" aria-labelledby="pills-login-tab">
         <form class="m-2 pt-3" action="/user/login" method="post">
           <div class="mb-3">
             <input type="email" name="email" placeholder="EMAIL" class="fs-5 p-2 mb-3 w-100" required>
@@ -31,7 +31,7 @@
           <a href="/auth/facebook" class="btn btn-info btn-block w-100 mt-2">Facebook Login</a>
         </form>
       </div>
-      <div class="tab-pane fade mt-0 pt-0" id="create" role="tabpanel" aria-labelledby="pills-create-tab">
+      <div class="{{#if register}} show active {{/if }} tab-pane fade mt-0 pt-0" id="create" role="tabpanel" aria-labelledby="pills-create-tab">
         <form action="/user/register" method="POST">
           <div class="mb-3">
             <label for="name" class="mb-2">Name</label>

@@ -131,6 +131,7 @@ a {
 #top-menu .nav-item a.active {
   color: black !important;
   border-bottom: #4592af 5px solid;
+  background-color: white;
 }
 
 #top-menu .nav-item a:visited {
