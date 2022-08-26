@@ -37,27 +37,6 @@ router.get('/search', (req, res) => {
       return res.render('error', { err })
     })
 
-  // return Restaurant.find({ userId })
-  //   .lean()
-  //   .sort(sort)
-  //   .then(restaurants => {
-  //     console.log(restaurants)
-  // if (!restaurants.length) {
-  //   return res.render('index', { keyword, alert: true, sort })
-  // }
-
-
-
-  console.log(filterRestaurantsData)
-
-
-  // if (!restaurants.length || !searchResult.length) {
-  //   return res.render('index', { keyword, alert: true, sort })
-  // }
-
-  // res.render('index', { restaurants: filterRestaurantsData, keyword })
-
-
 })
 
 

@@ -16,6 +16,8 @@
     </ul>
     <div class="tab-content" id="pills-tabContent">
       <div class="tab-pane fade {{#if login}} show active {{/if }} mt-0 pt-0" id="login" role="tabpanel" aria-labelledby="pills-login-tab">
+      {{#if login }} {{> message}} {{/if}}
+      
         <form class="m-2 pt-3" action="/user/login" method="post">
           <div class="mb-3">
             <input type="email" name="email" placeholder="EMAIL" class="fs-5 p-2 mb-3 w-100" required>
@@ -32,23 +34,20 @@
         </form>
       </div>
       <div class="{{#if register}} show active {{/if }} tab-pane fade mt-0 pt-0" id="create" role="tabpanel" aria-labelledby="pills-create-tab">
+      {{#if register}} {{> message}} {{/if }}
         <form action="/user/register" method="POST">
           <div class="mb-3">
-            <label for="name" class="mb-2">Name</label>
             <input type="text" id="name" name="name" class="form-control" placeholder="Name" value="{{ input.name }}">
           </div>
           <div class="mb-3">
-            <label for="email" class="mb-2">Email</label>
             <input type="email" id="email" name="email" class="form-control" placeholder="Email"
               value="{{ input.email }}">
           </div>
           <div class="mb-3">
-            <label for="password" class="mb-2">Password</label>
             <input type="password" id="password" name="password" class="form-control" placeholder="Password"
               value="{{ input.password }}">
           </div>
           <div class="mb-3">
-            <label for="confirmPassword" class="mb-2">Confirm Password</label>
             <input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
               placeholder="Enter Password again" value="{{ input.confirmPassword  }}">
           </div>

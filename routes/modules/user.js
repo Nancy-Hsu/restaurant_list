@@ -15,12 +15,24 @@ router.post('/login', passport.authenticate('local', {
 router.post('/register', (req, res) => {
   const input = req.body
   const { name, email, password, confirmPassword } = req.body
+  const errors = []
+  if (!name || !email || !password || !confirmPassword) {
+    errors.push({ message: 'kindly fill up all the fields below.' })
+  }
+  if (password !== confirmPassword) {
+    errors.push({ message: 'Different password and confirmPassword !' })
+  }
 
+  if (errors.length) {
+    return res.render('login', {
+      errors, input, register: true
+    })
+  }
   User.findOne({ email })
     .then(user => {
       if (user) {
-        console.log('User already exists.')
-        return res.render('login', { input, register: true })
+        errors.push({ message: 'User already exists.' })
+        return res.render('login', { errors, input, register: true })
       }
 
       User.create({ name, email, password })
@@ -31,6 +43,7 @@ router.post('/register', (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.logout()
+  req.flash('success_msg', 'Logout successfully !')
   res.redirect('/user/login')
 })
 module.exports = router

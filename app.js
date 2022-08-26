@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 /// /handlebars helper
 const helpers = require('handlebars-helpers')()
+const flash = require('connect-flash')
 
 const app = express()
 const port = 3000
@@ -39,10 +40,14 @@ app.use(methodOverride('_method'))
 
 // invoke
 usePassport(app)
+//flash
+app.use(flash())
 /// set res.locals
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.warning_msg = req.flash('warning_msg')
   next()
 })
 
